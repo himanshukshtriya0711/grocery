@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+  body {
+      background: linear-gradient(135deg, #ffcc33, #ff66ff, #33ccff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+  }
+
+  @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+  }
+
+  .container {
+      background: rgba(255, 255, 255, 0.8); /* White background with opacity */
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 50px;
+  }
+
+  .btn-custom {
+      transition: transform 0.3s, background-color 0.3s, color 0.3s;
+  }
+
+  .btn-custom:hover {
+      transform: scale(1.1);
+  }
+
+  .btn-buy {
+      background-color: #28a745;
+      color: white;
+  }
+
+  .btn-buy:hover {
+      background-color: #218838;
+  }
+
+  .btn-add {
+      background-color: #ffc107;
+      color: black;
+  }
+
+  .btn-add:hover {
+      background-color: #e0a800;
+  }
+
+  .btn-remove {
+      background-color: #dc3545;
+      color: white;
+  }
+
+  .btn-remove:hover {
+      background-color: #c82333;
+  }
+
+  .btn-add-item {
+      background-color: #17a2b8;
+      color: white;
+  }
+
+  .btn-add-item:hover {
+      background-color: #138496;
+  }
+
+  .grocery-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background: #f8f9fa;
+  }
+
+  .grocery-list {
+      max-width: 600px;
+      margin: 20px auto;
+  }
+
+{% endblock %}
+
+{% block body %}
+<style>
+    .table .cell-1 { background-color: #ff9999; } /* Light Red */
+    .table .cell-2 { background-color: #99ff99; } /* Light Green */
+    .table .cell-3 { background-color: #9999ff; } /* Light Blue */
+    .table .cell-4 { background-color: #ffff99; } /* Light Yellow */
+    .table .cell-5 { background-color: #ff99ff; } /* Light Pink */
+    .table .cell-6 { background-color: #99ffff; } /* Light Cyan */
+    .table .cell-7 { background-color: #ffcc99; } /* Light Orange */
+    .table .cell-8 { background-color: #ccff99; } /* Light Lime */
+    .table .cell-9 { background-color: #cc99ff; } /* Light Purple */
+
+    body {
+      padding-top: 56px; /* Adjust based on the height of the navbar */
+    }
+  </style>
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="{% url 'home' %}">
+    <i class="fas fa-home"></i> <!-- Font Awesome icon -->
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <i class="fas fa-star"></i> <!-- Another Font Awesome icon -->
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pricing</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <!-- Add Item Button -->
+  <button type="button" class="btn btn-warming mb-3"><a class="btn btn warming"  href = "{% url 'add_grocery' %}">Add Item</a></button>
+  
+  <!-- Colorful Table -->
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for grocery in grocerys %}
+      <tr>
+        <td class="cell-1">{{ grocery.item }}</td>
+        <td class="cell-2">{{ grocery.quantity }}</td>
+        <td><a href ="{% url 'delete_grocery' grocery.id %}" class = "btn btn-success btn-sm" onclick="deleteTask(this)">Delete</a>
+           <a href = "{% url 'remove_grocery' grocery.id %}" class = "btn btn-primary btn-sm mx-2" onclick="deleteTask(this)">complete</a>
+           <a href = "{% url 'update_grocery' grocery.id %}" class = "btn btn-primary btn-sm mx-2">update</a>
+        </td>
+      </tr>
+      {% endfor %}
+     
+    </tbody>
+  </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    body {
+      background: linear-gradient(135deg, #ffcccc, #ffe6cc, #ffffcc, #e6ffcc, #ccffff, #cce6ff);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-control:focus {
+      border-color: #0066cc;
+      box-shadow: 0 0 8px rgba(0, 102, 204, 0.5);
+    }
+
+    .btn-primary {
+      background-color: #0066cc;
+      border-color: #0066cc;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #004d99;
+      transform: scale(1.05);
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+<div class="form-container">
+  <form method = "POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">item</label>
+      <input type="text" value = "{{ grocery.item }}" class="form-control" name = "new_item" id="name" placeholder="Enter new item name ">
+    </div>
+    
+    <div class="form-group">
+      <label for="password">Quantity</label>
+      <input type="number"value = {{ grocery.quantity }} name = "new_quantity" class="form-control" id="password" placeholder="Enter quantity">
+    </div>
+    <button type="submit"  class="btn btn-primary btn-block mt-3"> Submit</button>
+  </form>
+</div>
+
+
+
+
+{% endblock %}

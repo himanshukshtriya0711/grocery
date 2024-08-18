@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block body %}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #ffcc33, #ff66ff, #33ccff);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .container {
+        background: rgba(255, 255, 255, 0.8); /* White background with opacity */
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 50px;
+    }
+
+    .btn-custom {
+        transition: transform 0.3s, background-color 0.3s, color 0.3s;
+    }
+
+    .btn-custom:hover {
+        transform: scale(1.1);
+    }
+
+    .btn-form {
+        background-color: #6f42c1;
+        color: white;
+    }
+
+    .btn-form:hover {
+        background-color: #5a32a0;
+    }
+
+    .form-container {
+        background: rgba(255, 255, 255, 0.8); /* White background with opacity */
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        border-color: #80bdff;
+    }
+
+    .btn-shine {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-shine::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: rgba(255, 255, 255, 0.5);
+        transform: rotate(45deg);
+        transition: transform 0.5s;
+        opacity: 0;
+    }
+
+    .btn-shine:hover::before {
+        transform: translateX(150%) translateY(150%);
+        opacity: 0.6;
+    }
+</style>
+</head>
+<body>
+
+<div class="container form-container">
+<h2 class="text-center">Add New Item</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="itemName">Item Name</label>
+        <input type="text" class="form-control" id="itemName" name = "item" placeholder="Enter item name">
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" class="form-control" id="quantity" name = "quantity" placeholder="Enter quantity">
+    </div>
+    <button type="submit" class="btn btn-form btn-custom btn-block btn-shine mt-2 mx-4">Add</button>
+</form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+{% endblock %}
